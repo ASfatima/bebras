@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقة بيبراس موهبة  - المتوسطة الثالثة بتبوك</title>
+    <title>مسابقة بيبراس موهبة - المتوسطة الثالثة بتبوك</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- SheetJS for Excel Export -->
@@ -29,7 +29,7 @@
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-4 space-x-reverse">
                 <div class="w-16 h-16 bg-indigo-50 rounded-2xl p-1 border border-indigo-100 flex items-center justify-center shadow-inner">
-                    <img src="new.png"; this.onerror=null;" alt="شعار بيبراس موهبة" class="max-h-full max-w-full object-contain">
+                    <img src="https://raw.githubusercontent.com/ASfatima/bebras/main/new.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Bebras_logo.svg/512px-Bebras_logo.svg.png'; this.onerror=null;" alt="شعار بيبراس موهبة" class="max-h-full max-w-full object-contain">
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-black text-indigo-900 leading-tight">مسابقة بيبراس موهبة للتفكير الحاسوبي</h1>
@@ -211,13 +211,9 @@
 
                 <div class="p-6 space-y-4 overflow-y-auto flex-grow">
                     <div class="flex flex-wrap items-center justify-between gap-3">
-                        <span id="totalStudentsCount" class="text-sm font-bold text-gray-700">جاري التحميل...</span>
+                        <span id="totalStudentsCount" class="text-sm font-bold text-gray-700">سجل نتائج الطالبات</span>
                         <div class="flex gap-2">
-                            <button onclick="fetchCloudRecords()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
-                                <i class="fa-solid fa-rotate"></i>
-                                <span>تحديث</span>
-                            </button>
-                            <button onclick="exportToExcelFromCloud()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
+                            <button onclick="exportToExcelFromLocal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
                                 <i class="fa-solid fa-file-excel text-sm"></i>
                                 <span>تصدير ملف Excel الموحد</span>
                             </button>
@@ -264,53 +260,53 @@
         // --- الرابط السحابي الخاص بكِ ---
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLids-b7oyegVlPNq37-qy1We-oZoFrcNirKYI-yQlZEQUTax7EhkMTbGMLteircjA9Q/exec";
 
-        // بنك الأسئلة
+        // بنك الأسئلة (10 أسئلة متكاملة)
         const BEBRAS_QUESTION_BANK = [
             { 
                 id: 1, title: "القلائد", category: "التعرف على الأنماط", difficulty: "سهل", points: 40, 
-                qImage: "https://github.com/ASfatima/bebras/blob/main/Q1.png",
+                qImage: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1.png",
                 story: "حصلت نورة وسارة على القلائد الظاهرة\nادناه خلال إجازتهم صورة 1\nتريد نورة وسارة صنع قلادة لصديقتهم\nأسيل، لذلك استخدموا ستة لآلئ من قلائدهم لصنع قلادة جديدة لها. والأن أصبحت\nقلائدهم تبدو بهذا الشكل صورة2", 
                 options: [
-                    { text: "الخيار أ", img: "https://github.com/ASfatima/bebras/blob/main/Q1n1.png" },
-                    { text: "الخيار ب", img: "https://github.com/ASfatima/bebras/blob/main/Q1n2.png" },
-                    { text: "الخيار ج", img: "https://github.com/ASfatima/bebras/blob/main/Q1n3.png" },
-                    { text: "الخيار د", img: "https://github.com/ASfatima/bebras/blob/main/Q1n4.png"}
+                    { text: "الخيار أ", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1n1.png" },
+                    { text: "الخيار ب", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1n2.png" },
+                    { text: "الخيار ج", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1n3.png" },
+                    { text: "الخيار د", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1n4.png"}
                 ], 
                 correct: 0
             },
             { 
                 id: 2, title: "العصي", category: "التفكير الخوارزمي", difficulty: "سهل", points: 40, 
-                qImage: "https://github.com/ASfatima/bebras/blob/main/Q2.png",
+                qImage: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q2.png",
                 story: "تلعب هاجر لعبة التقاط العصي، حيث تسقط مجموعة من العصي على الطاولة، ثم تلتقطها بناءً على القواعد التالية :", 
                 options: [
-                    { text: "الخيار أ", img: "https://github.com/ASfatima/bebras/blob/main/Q2n1.png" },
-                    { text: "الخيار ب", img: "https://github.com/ASfatima/bebras/blob/main/Q2n2.png" },
-                    { text: "الخيار ج", img: "https://github.com/ASfatima/bebras/blob/main/Q2n3.png" },
-                    { text: "الخيار د", img: "https://github.com/ASfatima/bebras/blob/main/Q2n4.png" }
+                    { text: "الخيار أ", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q2n1.png" },
+                    { text: "الخيار ب", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q2n2.png" },
+                    { text: "الخيار ج", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q2n3.png" },
+                    { text: "الخيار د", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q2n4.png" }
                 ], 
                 correct: 2 
             },
             { 
                 id: 3, title: "ترتيب القمصان", category: "العمليات الرياضية", difficulty: "سهل", points: 40, 
-                qImage: "https://github.com/ASfatima/bebras/blob/main/Q3.png",
+                qImage: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q3.png",
                 story: "لدى أسماء مجموعة من ستة قمصان نظيفة على سريرها عليها أن تضعها في أدراجها\nالأربعة. تأخذ قميصاً واحداً في كل مرة من أعلى الكومة، وتضعه في درج. تبدأ بالدرج\nالعلوي، ثم تنتقل إلى الثاني من الأعلى، وهكذا. عندما تضع قميصاً في الدرج السفلي،\nتبدأ مرة أخرى من الأعلى.", 
                 options: [
-                    { text: "الدرج الأول (1)", img: "https://github.com/ASfatima/bebras/blob/main/Q3n1.png" },
-                    { text: "الدرج الثاني (2)", img: "https://github.com/ASfatima/bebras/blob/main/Q3n2.png" },
-                    { text: "الدرج الثالث (3)", img: "https://github.com/ASfatima/bebras/blob/main/Q3n3.png" },
-                    { text: "الدرج الرابع (4)", img: "https://github.com/ASfatima/bebras/blob/main/Q3n4.png" }
+                    { text: "الدرج الأول (1)", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q3n1.png" },
+                    { text: "الدرج الثاني (2)", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q3n2.png" },
+                    { text: "الدرج الثالث (3)", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q3n3.png" },
+                    { text: "الدرج الرابع (4)", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q3n4.png" }
                 ], 
                 correct: 1 
             },
             { 
                 id: 4, title: "رسالة من القنادس الأجداد", category: "التشفير", difficulty: "متوسط", points: 40, 
-                qImage: "https://github.com/ASfatima/bebras/blob/main/Q4.png",
+                qImage: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q4.png",
                 story: "اكتشف القندس سمير شجرة قديمة في أعماق السد محفوراً عليها علامات\nغامضة. واستنتج أن هذه العلامات ربما تكون جدول ترميز يعود إلى الوقت الذي كان فيه\nالقنادس الأجداد يعيشون في السد. صورة1\nبعد دراسة طويلة للجدول، توصل سمير إلى كيفية عمله: العلامة الجديدة للحرف\nعبارة عن مجموعة الرموز في الصف والعمود المقابلة لهذا الحرف على سبيل المثال: الحرفH مشفّر على النحو التالي\nصورة2\nتذكر سمير أنه رأى مثل هذه العلامات في مكان اخر في السد ذهب إلى هناك\nوبالفعل هذا ما هو مكتوب على الشجرة الأخرى:صورة 3\nما الرسالة التي كتبها القنادس الأجداد؟", 
                 options: [
-                    { text: "BEBRAS2026", img:""},
-                    { text: "LOVEWATER", img:""},
-                    { text: "MAWHIBAKSA", img:""},
-                    { text: "COMPUTER", img:""}
+                    { text: "BEBRAS2026", img: "" },
+                    { text: "LOVEWATER", img: "" },
+                    { text: "MAWHIBAKSA", img: "" },
+                    { text: "COMPUTER", img: "" }
                 ], 
                 correct: 1 
             },
@@ -319,17 +315,17 @@
                 qImage: "",
                 story: "ترغب نورا في الحصول على سوار كما هو موضح في الصورة التالية، لذلك أعطت نوف التعليمات التالية :", 
                 options: [
-                    { text: "الخيار أ", img:"" },
-                    { text: "الخيار ب", img:"" },
-                    { text: "الخيار ج", img:"" },
-                    { text: "الخيار د", img:"" }
+                    { text: "الخيار أ", img: "" },
+                    { text: "الخيار ب", img: "" },
+                    { text: "الخيار ج", img: "" },
+                    { text: "الخيار د", img: "" }
                 ], 
                 correct: 2 
             },
             { 
                 id: 6, title: "لوحة بيبراس", category: "التعرف على الأنماط", difficulty: "متوسط", points: 40, 
                 qImage: "",
-                story: "تستطيع القنادس الصغيرة تغيير الأشكال على أي لوحة باستخدام بكرة سحرية استناداً لأسهم التوجيه[cite: 11].\nكيف ستبدو اللوحة التالية بعد تطبيق البكرة السحرية؟[cite: 11]", 
+                story: "تستطيع القنادس الصغيرة تغيير الأشكال على أي لوحة باستخدام بكرة سحرية استناداً لأسهم التوجيه.\nكيف ستبدو اللوحة التالية بعد تطبيق البكرة السحرية؟", 
                 options: [
                     { text: "الخيار أ", img: "" },
                     { text: "الخيار ب", img: "" },
@@ -341,7 +337,7 @@
             { 
                 id: 7, title: "الري", category: "البوابات المنطقية", difficulty: "متوسط", points: 40, 
                 qImage: "",
-                story: "توضح الصورة كيفية توصيل نظام الري (أنابيب وصمامات مفتوحة ومغلقة)[cite: 12].\nأي من الزهور ستحصل على الماء؟[cite: 12]", 
+                story: "توضح الصورة كيفية توصيل نظام الري (أنابيب وصمامات مفتوحة ومغلقة).\nأي من الزهور ستحصل على الماء؟", 
                 options: [
                     { text: "الزهور في المسار (أ)", img: "" },
                     { text: "الزهرة في المسار الأوسط (ب)", img: "" },
@@ -353,7 +349,7 @@
             { 
                 id: 8, title: "الأرقام", category: "الترميز الرقمي", difficulty: "متوسط", points: 40, 
                 qImage: "",
-                story: "تريد لينا عرض الأرقام باستخدام إضاءات سباعية (LEDs) مكوّنة من القطع (A إلى G)[cite: 13].\nما هي الأرقام الناتجة من جدول التشغيل المعطى؟[cite: 13]", 
+                story: "تريد لينا عرض الأرقام باستخدام إضاءات سباعية (LEDs) مكوّنة من القطع (A إلى G).\nما هي الأرقام الناتجة من جدول التشغيل المعطى؟", 
                 options: [
                     { text: "123456", img: "" },
                     { text: "423958", img: "" },
@@ -365,7 +361,7 @@
             { 
                 id: 9, title: "الصواميل والمسامير", category: "التفكير الخوارزمي", difficulty: "صعب", points: 40, 
                 qImage: "",
-                story: "يقف القندس بدر عند حزام ناقل لالتقاط المسامير والصواميل وربطها ببعضها دون أخطاء[cite: 14].\nما هو تسلسل الصواميل والمسامير الذي لا يتسبب في حدوث خطأ؟[cite: 14]", 
+                story: "يقف القندس بدر عند حزام ناقل لالتقاط المسامير والصواميل وربطها ببعضها دون أخطاء.\nما هو تسلسل الصواميل والمسامير الذي لا يتسبب في حدوث خطأ؟", 
                 options: [
                     { text: "الخيار أ", img: "" },
                     { text: "الخيار ب", img: "" },
@@ -377,7 +373,7 @@
             { 
                 id: 10, title: "الجيران", category: "الرسوم البيانية", difficulty: "تحدي صعب", points: 40, 
                 qImage: "",
-                story: "خريطة مائية تضم جزر وممرات، حيث لكل من مريم وزينب وباسم أربعة جيران، ونواف جار لهم وله مساران فقط[cite: 15].\nما هو رقم منزل مريم؟[cite: 15]", 
+                story: "خريطة مائية تضم جزر وممرات، حيث لكل من مريم وزينب وباسم أربعة جيران، ونواف جار لهم وله مساران فقط.\nما هو رقم منزل مريم؟", 
                 options: [
                     { text: "المنزل رقم 2", img: "" },
                     { text: "المنزل رقم 4", img: "" },
@@ -510,6 +506,11 @@
                 "التاريخ والوقت": new Date().toLocaleString('ar-SA')
             };
 
+            // حفظ النتيجة محلياً لضمان عدم ضياعها ولعرضها فوراً باللوحة
+            let localRecords = JSON.parse(localStorage.getItem('bebras_records') || '[]');
+            localRecords.push(record);
+            localStorage.setItem('bebras_records', JSON.stringify(localRecords));
+
             sendRecordToCloud(record);
 
             document.getElementById('quizContainer').classList.add('hidden');
@@ -537,34 +538,25 @@
             else alert("الرمز السري غير صحيح!");
         }
 
-        let cloudRecordsCache = [];
-        function openTeacherModal() { fetchCloudRecords(); document.getElementById('teacherModal').classList.remove('hidden'); }
-        function closeTeacherModal() { document.getElementById('teacherModal').classList.add('hidden'); }
-
-        function fetchCloudRecords() {
-            const tbody = document.getElementById('studentRecordsTable');
-            document.getElementById('totalStudentsCount').textContent = "جاري جلب السجلات من السحابة...";
-            tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-500">جاري التحميل...</td></tr>`;
-
-            fetch(GOOGLE_SCRIPT_URL)
-                .then(res => res.json())
-                .then(data => {
-                    cloudRecordsCache = data || [];
-                    renderTeacherRecordsTable(cloudRecordsCache);
-                })
-                .catch(err => {
-                    tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-rose-600">تعذر الاتصال بالسحابة مباشرة. يمكنكِ الاطلاع على الإجابات وتنزيل ملف Excel مباشرة من ملف Google Sheet الخاص بكِ!</td></tr>`;
-                });
+        function openTeacherModal() { 
+            renderLocalRecordsTable();
+            document.getElementById('teacherModal').classList.remove('hidden'); 
+        }
+        
+        function closeTeacherModal() { 
+            document.getElementById('teacherModal').classList.add('hidden'); 
         }
 
-        function renderTeacherRecordsTable(records) {
+        function renderLocalRecordsTable() {
             const tbody = document.getElementById('studentRecordsTable');
-            document.getElementById('totalStudentsCount').textContent = `إجمالي الطالبات المختبرات: ${records.length}`;
+            let records = JSON.parse(localStorage.getItem('bebras_records') || '[]');
+            
             tbody.innerHTML = '';
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400">لا توجد سجلات مسجلة بعد</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400">لا توجد سجلات مسجلة على هذا الجهاز بعد (النتائج تصل أيضاً مباشرة لملف Google Sheet الخاص بكِ عند تسليم الطالبات).</td></tr>`;
                 return;
             }
+
             records.forEach((rec, idx) => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-50";
@@ -581,9 +573,10 @@
             });
         }
 
-        function exportToExcelFromCloud() {
-            if (cloudRecordsCache.length === 0) return alert("لا توجد بيانات بجدول اللوحة حالياً. يمكنكِ أيضاً تحميل Excel مباشرة من داخل ملف Google Sheet الخاص بكِ!");
-            const worksheet = XLSX.utils.json_to_sheet(cloudRecordsCache);
+        function exportToExcelFromLocal() {
+            let records = JSON.parse(localStorage.getItem('bebras_records') || '[]');
+            if (records.length === 0) return alert("لا توجد بيانات مسجلة حالياً. يمكنكِ أيضاً تنزيل ملف Excel مباشرة من لوحة Google Sheets الخاصة بكِ!");
+            const worksheet = XLSX.utils.json_to_sheet(records);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الطالبات");
             XLSX.writeFile(workbook, `نتائج_مسابقة_بيبراس_المتوسطة_الثالثة.xlsx`);
