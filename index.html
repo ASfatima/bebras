@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقة بيبراس موهبة - المتوسطة الثالثة بتبوك</title>
+    <title>مسابقة بيبراس موهبة للتفكير الحاسوبي - المتوسطة الثالثة بتبوك</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- SheetJS for Excel Export -->
@@ -211,9 +211,13 @@
 
                 <div class="p-6 space-y-4 overflow-y-auto flex-grow">
                     <div class="flex flex-wrap items-center justify-between gap-3">
-                        <span id="totalStudentsCount" class="text-sm font-bold text-gray-700">سجل نتائج الطالبات</span>
+                        <span id="totalStudentsCount" class="text-sm font-bold text-gray-700">جاري التحميل...</span>
                         <div class="flex gap-2">
-                            <button onclick="exportToExcelFromLocal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
+                            <button onclick="fetchCloudRecords()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-rotate"></i>
+                                <span>تحديث</span>
+                            </button>
+                            <button onclick="exportToExcelFromCloud()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-sm">
                                 <i class="fa-solid fa-file-excel text-sm"></i>
                                 <span>تصدير ملف Excel الموحد</span>
                             </button>
@@ -260,7 +264,7 @@
         // --- الرابط السحابي الخاص بكِ ---
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLids-b7oyegVlPNq37-qy1We-oZoFrcNirKYI-yQlZEQUTax7EhkMTbGMLteircjA9Q/exec";
 
-        // بنك الأسئلة (10 أسئلة متكاملة)
+        // بنك الأسئلة (مع روابط الصور الخام الصحيحة)
         const BEBRAS_QUESTION_BANK = [
             { 
                 id: 1, title: "القلائد", category: "التعرف على الأنماط", difficulty: "سهل", points: 40, 
@@ -272,7 +276,7 @@
                     { text: "الخيار ج", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1n3.png" },
                     { text: "الخيار د", img: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q1n4.png"}
                 ], 
-                correct: 0
+                correct: 0 
             },
             { 
                 id: 2, title: "العصي", category: "التفكير الخوارزمي", difficulty: "سهل", points: 40, 
@@ -303,17 +307,17 @@
                 qImage: "https://raw.githubusercontent.com/ASfatima/bebras/main/Q4.png",
                 story: "اكتشف القندس سمير شجرة قديمة في أعماق السد محفوراً عليها علامات\nغامضة. واستنتج أن هذه العلامات ربما تكون جدول ترميز يعود إلى الوقت الذي كان فيه\nالقنادس الأجداد يعيشون في السد. صورة1\nبعد دراسة طويلة للجدول، توصل سمير إلى كيفية عمله: العلامة الجديدة للحرف\nعبارة عن مجموعة الرموز في الصف والعمود المقابلة لهذا الحرف على سبيل المثال: الحرفH مشفّر على النحو التالي\nصورة2\nتذكر سمير أنه رأى مثل هذه العلامات في مكان اخر في السد ذهب إلى هناك\nوبالفعل هذا ما هو مكتوب على الشجرة الأخرى:صورة 3\nما الرسالة التي كتبها القنادس الأجداد؟", 
                 options: [
-                    { text: "BEBRAS2026", img: "" },
-                    { text: "LOVEWATER", img: "" },
-                    { text: "MAWHIBAKSA", img: "" },
-                    { text: "COMPUTER", img: "" }
+                    { text: "BEBRAS2026" },
+                    { text: "LOVEWATER"},
+                    { text: "MAWHIBAKSA"},
+                    { text: "COMPUTER"}
                 ], 
                 correct: 1 
             },
             { 
                 id: 5, title: "سوار من النجوم والأقمار", category: "التكرار", difficulty: "متوسط", points: 40, 
                 qImage: "",
-                story: "ترغب نورا في الحصول على سوار كما هو موضح في الصورة التالية، لذلك أعطت نوف التعليمات التالية :", 
+                story: "اتبعت نوف تعليمات نورا لربط النجوم والأقمار لعمل سوار دائري.\nثلاثة من الأساور التالية يمكن الحصول عليها، أي سوار **لا يمكن** الحصول عليه؟", 
                 options: [
                     { text: "الخيار أ", img: "" },
                     { text: "الخيار ب", img: "" },
@@ -506,11 +510,6 @@
                 "التاريخ والوقت": new Date().toLocaleString('ar-SA')
             };
 
-            // حفظ النتيجة محلياً لضمان عدم ضياعها ولعرضها فوراً باللوحة
-            let localRecords = JSON.parse(localStorage.getItem('bebras_records') || '[]');
-            localRecords.push(record);
-            localStorage.setItem('bebras_records', JSON.stringify(localRecords));
-
             sendRecordToCloud(record);
 
             document.getElementById('quizContainer').classList.add('hidden');
@@ -538,25 +537,34 @@
             else alert("الرمز السري غير صحيح!");
         }
 
-        function openTeacherModal() { 
-            renderLocalRecordsTable();
-            document.getElementById('teacherModal').classList.remove('hidden'); 
-        }
-        
-        function closeTeacherModal() { 
-            document.getElementById('teacherModal').classList.add('hidden'); 
+        let cloudRecordsCache = [];
+        function openTeacherModal() { fetchCloudRecords(); document.getElementById('teacherModal').classList.remove('hidden'); }
+        function closeTeacherModal() { document.getElementById('teacherModal').classList.add('hidden'); }
+
+        function fetchCloudRecords() {
+            const tbody = document.getElementById('studentRecordsTable');
+            document.getElementById('totalStudentsCount').textContent = "جاري جلب السجلات من السحابة...";
+            tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-500">جاري التحميل...</td></tr>`;
+
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(res => res.json())
+                .then(data => {
+                    cloudRecordsCache = data || [];
+                    renderTeacherRecordsTable(cloudRecordsCache);
+                })
+                .catch(err => {
+                    tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-rose-600">تعذر الاتصال بالسحابة مباشرة. يمكنكِ الاطلاع على الإجابات وتنزيل ملف Excel مباشرة من ملف Google Sheet الخاص بكِ!</td></tr>`;
+                });
         }
 
-        function renderLocalRecordsTable() {
+        function renderTeacherRecordsTable(records) {
             const tbody = document.getElementById('studentRecordsTable');
-            let records = JSON.parse(localStorage.getItem('bebras_records') || '[]');
-            
+            document.getElementById('totalStudentsCount').textContent = `إجمالي الطالبات المختبرات: ${records.length}`;
             tbody.innerHTML = '';
             if (records.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400">لا توجد سجلات مسجلة على هذا الجهاز بعد (النتائج تصل أيضاً مباشرة لملف Google Sheet الخاص بكِ عند تسليم الطالبات).</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400">لا توجد سجلات مسجلة بعد</td></tr>`;
                 return;
             }
-
             records.forEach((rec, idx) => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-50";
@@ -573,10 +581,9 @@
             });
         }
 
-        function exportToExcelFromLocal() {
-            let records = JSON.parse(localStorage.getItem('bebras_records') || '[]');
-            if (records.length === 0) return alert("لا توجد بيانات مسجلة حالياً. يمكنكِ أيضاً تنزيل ملف Excel مباشرة من لوحة Google Sheets الخاصة بكِ!");
-            const worksheet = XLSX.utils.json_to_sheet(records);
+        function exportToExcelFromCloud() {
+            if (cloudRecordsCache.length === 0) return alert("لا توجد بيانات بجدول اللوحة حالياً. يمكنكِ أيضاً تحميل Excel مباشرة من داخل ملف Google Sheet الخاص بكِ!");
+            const worksheet = XLSX.utils.json_to_sheet(cloudRecordsCache);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "نتائج الطالبات");
             XLSX.writeFile(workbook, `نتائج_مسابقة_بيبراس_المتوسطة_الثالثة.xlsx`);
